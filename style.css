@@ -1,6 +1,10 @@
 body {
     background-color: #0d1117;
 }
+#start {
+    margin: auto;
+    background-color: #0d1117;
+}
 #board {
     display: grid;
     grid-template-columns: 133px 133px 133px;
