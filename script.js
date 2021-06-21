@@ -1,18 +1,56 @@
-const ttt = (() => {
-const game = {
-    gameBoard: ['x','o','x','o','x','o','x','o','x'],
+const Player = (name, symbol) => {
+    return {name, symbol}
 }
+
+const ttt = (() => {
+    let gameBoard = ['','','','','','','','','']
+    function assignPlayers() {
+        player1 = (Player('Bob', 'x'))
+        player2 = (Player('Sally', 'o'))
+    }
+    round = 0
+    function placeMarkers() {
+        if (gameBoard[this.id] !== '') {
+            return
+        }
+        round++
+        if (round % 2 !== 0) {
+            gameBoard.splice(this.id, 1, 'x')
+            display.displayMarkers()
+        } else if (round % 2 === 0) {
+            gameBoard.splice(this.id, 1, 'o')
+            display.displayMarkers()
+        }
+        checkGameState()
+    }
+    function checkGameState() {
+        if (gameBoard[1] === 'x' && gameBoard[4] === 'x' && gameBoard[7] === 'x') {
+            
+        }
+    }
+
 return {
-    game,
+    gameBoard,
+    assignPlayers,
+    placeMarkers,
 }
 })();
 
-const Player = () => {
-}
-
 const display = (() => {
+    function addEvents() {
+        let squares = document.querySelectorAll(".square")
+        squares.forEach((square) => {
+            square.addEventListener('click', ttt.placeMarkers)
+        })
+    }
     function displayMarkers() {
-        ttt.game.gameBoard.forEach((elem, i) => {
+        let allSquares = document.querySelectorAll('.square')
+        allSquares.forEach((square) => {
+            if (square.contains(document.querySelector(".marker"))) {
+                document.querySelector(".marker").remove();
+            }
+        })
+        ttt.gameBoard.forEach((elem, i) => {
             let marker = document.createElement('div');
             if (elem == 'x') {
                 marker.classList.add('marker', 'X');
@@ -27,13 +65,15 @@ const display = (() => {
             square.appendChild(marker)
         })
     }
-    function test() {
-        console.log(ttt.game)
+    function displayGameState() {
+        
     }
 return {
     displayMarkers,
-    test,
+    addEvents,
 }
 })();
 
+ttt.assignPlayers()
+display.addEvents()
 display.displayMarkers()
