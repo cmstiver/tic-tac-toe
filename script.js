@@ -25,7 +25,7 @@ const ttt = (() => {
         game.round++
         game.gameBoard = ['','','','','','','','','']
         display.addEvents()
-        game.round % 2 === 0 ? display.displayGameState('oturn') : display.displayGameState('xturn')
+        game.round % 2 === 0 ? display.displayGameState('xturn') : display.displayGameState('oturn')
     }
     function placeMarkers() {
         if (game.gameBoard[this.id] !== '') {
