@@ -1,82 +1,119 @@
-const Player = (name, symbol) => {
-    return {name, symbol}
+const Player = (name, score) => {
+    return {name, score}
 }
 
 const ttt = (() => {
-    let gameBoard = ['','','','','','','','','']
+    let game = {
+        gameBoard: ['','','','','','','','',''],
+        turn: 0,
+        round: 0,
+    }
     function assignPlayers() {
-        player1 = (Player('Bob', 'x'))
-        player2 = (Player('Sally', 'o'))
+        player1 = (Player('Bob', 0))
+        player2 = (Player('Sally', 0))
         display.displayGameState('xturn')
         display.changePlayerNames()
     }
-    round = 0
+    function restartGame() {
+        game.turn = 0
+        game.round++
+        game.gameBoard = ['','','','','','','','','']
+        display.addEvents()
+    }
     function placeMarkers() {
-        if (gameBoard[this.id] !== '') {
+        if (game.gameBoard[this.id] !== '') {
             return
         }
-        round++
-        if (round % 2 !== 0) {
-            gameBoard.splice(this.id, 1, 'x')
-            display.displayMarkers()
-            display.displayGameState('oturn')
-        } else if (round % 2 === 0) {
-            gameBoard.splice(this.id, 1, 'o')
-            display.displayMarkers()
-            display.displayGameState('xturn')
+        if (game.round % 2 === 0) {
+            game.turn++
+            if (game.turn % 2 !== 0) {
+                game.gameBoard.splice(this.id, 1, 'x')
+                display.displayMarkers()
+                display.displayGameState('oturn')
+            } else if (game.turn % 2 === 0) {
+                game.gameBoard.splice(this.id, 1, 'o')
+                display.displayMarkers()
+                display.displayGameState('xturn')
+            }
+        } else {
+            game.turn++
+            if (game.turn % 2 === 0) {
+                game.gameBoard.splice(this.id, 1, 'x')
+                display.displayMarkers()
+                display.displayGameState('oturn')
+            } else if (game.turn % 2 !== 0) {
+                game.gameBoard.splice(this.id, 1, 'o')
+                display.displayMarkers()
+                display.displayGameState('xturn')
+            }
         }
         checkGameState()
+
     }
     function checkGameState() {
-        if (gameBoard[1] === 'x' && gameBoard[4] === 'x' && gameBoard[7] === 'x' ||
-            gameBoard[0] === 'x' && gameBoard[4] === 'x' && gameBoard[8] === 'x' ||
-            gameBoard[2] === 'x' && gameBoard[4] === 'x' && gameBoard[6] === 'x' ||
-            gameBoard[3] === 'x' && gameBoard[4] === 'x' && gameBoard[5] === 'x' ||
-            gameBoard[0] === 'x' && gameBoard[1] === 'x' && gameBoard[2] === 'x' ||
-            gameBoard[6] === 'x' && gameBoard[7] === 'x' && gameBoard[8] === 'x' ||
-            gameBoard[0] === 'x' && gameBoard[3] === 'x' && gameBoard[6] === 'x' ||
-            gameBoard[2] === 'x' && gameBoard[5] === 'x' && gameBoard[8] === 'x'
+        if (game.gameBoard[1] === 'x' && game.gameBoard[4] === 'x' && game.gameBoard[7] === 'x' ||
+            game.gameBoard[0] === 'x' && game.gameBoard[4] === 'x' && game.gameBoard[8] === 'x' ||
+            game.gameBoard[2] === 'x' && game.gameBoard[4] === 'x' && game.gameBoard[6] === 'x' ||
+            game.gameBoard[3] === 'x' && game.gameBoard[4] === 'x' && game.gameBoard[5] === 'x' ||
+            game.gameBoard[0] === 'x' && game.gameBoard[1] === 'x' && game.gameBoard[2] === 'x' ||
+            game.gameBoard[6] === 'x' && game.gameBoard[7] === 'x' && game.gameBoard[8] === 'x' ||
+            game.gameBoard[0] === 'x' && game.gameBoard[3] === 'x' && game.gameBoard[6] === 'x' ||
+            game.gameBoard[2] === 'x' && game.gameBoard[5] === 'x' && game.gameBoard[8] === 'x'
         ) {
             display.displayGameState('xwin')
         } else if (
-            gameBoard[1] === 'o' && gameBoard[4] === 'o' && gameBoard[7] === 'o' ||
-            gameBoard[0] === 'o' && gameBoard[4] === 'o' && gameBoard[8] === 'o' ||
-            gameBoard[2] === 'o' && gameBoard[4] === 'o' && gameBoard[6] === 'o' ||
-            gameBoard[3] === 'o' && gameBoard[4] === 'o' && gameBoard[5] === 'o' ||
-            gameBoard[0] === 'o' && gameBoard[1] === 'o' && gameBoard[2] === 'o' ||
-            gameBoard[6] === 'o' && gameBoard[7] === 'o' && gameBoard[8] === 'o' ||
-            gameBoard[0] === 'o' && gameBoard[3] === 'o' && gameBoard[6] === 'o' ||
-            gameBoard[2] === 'o' && gameBoard[5] === 'o' && gameBoard[8] === 'o'
+            game.gameBoard[1] === 'o' && game.gameBoard[4] === 'o' && game.gameBoard[7] === 'o' ||
+            game.gameBoard[0] === 'o' && game.gameBoard[4] === 'o' && game.gameBoard[8] === 'o' ||
+            game.gameBoard[2] === 'o' && game.gameBoard[4] === 'o' && game.gameBoard[6] === 'o' ||
+            game.gameBoard[3] === 'o' && game.gameBoard[4] === 'o' && game.gameBoard[5] === 'o' ||
+            game.gameBoard[0] === 'o' && game.gameBoard[1] === 'o' && game.gameBoard[2] === 'o' ||
+            game.gameBoard[6] === 'o' && game.gameBoard[7] === 'o' && game.gameBoard[8] === 'o' ||
+            game.gameBoard[0] === 'o' && game.gameBoard[3] === 'o' && game.gameBoard[6] === 'o' ||
+            game.gameBoard[2] === 'o' && game.gameBoard[5] === 'o' && game.gameBoard[8] === 'o'
         ) {
             display.displayGameState('owin')
         } else {
-            isGameDone = gameBoard.includes('')
+            isGameDone = game.gameBoard.includes('')
             isGameDone ? false : display.displayGameState('tie')
             }
     }
 
 return {
-    gameBoard,
+    game,
     assignPlayers,
     placeMarkers,
+    restartGame,
 }
 })();
 
 const display = (() => {
+    function enterPlayerWindow() {
+        
+    }
     function addEvents() {
+        document.getElementById('restart').addEventListener('click', restartButton)
         let squares = document.querySelectorAll(".square")
         squares.forEach((square) => {
             square.addEventListener('click', ttt.placeMarkers)
         })
     }
-    function displayMarkers() {
+    function removeEvents() {
+        let squares = document.querySelectorAll(".square")
+        squares.forEach((square) => {
+            square.removeEventListener('click', ttt.placeMarkers)
+        })
+    }
+    function removeMarkers() {
         let allSquares = document.querySelectorAll('.square')
         allSquares.forEach((square) => {
             if (square.contains(document.querySelector(".marker"))) {
                 document.querySelector(".marker").remove();
             }
-        })
-        ttt.gameBoard.forEach((elem, i) => {
+        }) 
+    }
+    function displayMarkers() {
+        removeMarkers()
+        ttt.game.gameBoard.forEach((elem, i) => {
             let marker = document.createElement('div');
             if (elem == 'x') {
                 marker.classList.add('marker', 'X');
@@ -97,17 +134,30 @@ const display = (() => {
     }
     function displayGameState(state) {
         let gamestate = document.getElementById('gamestate')
+        player1Score = document.getElementById('player1score')
+        player2Score = document.getElementById('player2score')
         if (state === 'xwin') {
+            player1.score++
             gamestate.textContent = player1.name.toUpperCase() + ' WINS'
+            player1Score.textContent = player1.score
+            removeEvents()
         } else if (state === 'owin') {
+            player2.score++
             gamestate.textContent = player2.name.toUpperCase() + ' WINS'
+            player2Score.textContent = player2.score
+            removeEvents()
         } else if (state === 'tie') {
             gamestate.textContent = "TIE"
+            removeEvents()
         } else if (state === 'xturn') {
             gamestate.textContent = player1.name + "'s turn."
         } else if (state === 'oturn') {
             gamestate.textContent = player2.name + "'s turn."
         }
+    }
+    function restartButton() {
+        removeMarkers()
+        ttt.restartGame()
     }
 return {
     displayMarkers,
@@ -117,6 +167,6 @@ return {
 }
 })();
 
+
 ttt.assignPlayers()
 display.addEvents()
-display.displayMarkers()
