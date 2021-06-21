@@ -8,9 +8,15 @@ const ttt = (() => {
         turn: 0,
         round: 0,
     }
-    function assignPlayers() {
-        player1 = (Player('Bob', 0))
-        player2 = (Player('Sally', 0))
+    function assignPlayers(x,o) {
+        if (x === '') {
+            x = 'X'
+        }
+        if (o === '') {
+            o = 'O'
+        }
+        player1 = (Player(x, 0))
+        player2 = (Player(o, 0))
         display.displayGameState('xturn')
         display.changePlayerNames()
     }
@@ -19,6 +25,7 @@ const ttt = (() => {
         game.round++
         game.gameBoard = ['','','','','','','','','']
         display.addEvents()
+        game.round % 2 === 0 ? display.displayGameState('oturn') : display.displayGameState('xturn')
     }
     function placeMarkers() {
         if (game.gameBoard[this.id] !== '') {
@@ -87,8 +94,16 @@ return {
 })();
 
 const display = (() => {
-    function enterPlayerWindow() {
-        
+    function enterButton() {
+        let xinput = document.getElementById('xinput')
+        let oinput = document.getElementById('oinput')
+        if (xinput.value.length > 13 || oinput.value.length > 13) {
+            alert('Names must be less than 12 characters.')
+        } else {
+            document.getElementById('start').remove()
+            ttt.assignPlayers(xinput.value, oinput.value)
+            addEvents()
+        }
     }
     function addEvents() {
         document.getElementById('restart').addEventListener('click', restartButton)
@@ -164,9 +179,6 @@ return {
     addEvents,
     displayGameState,
     changePlayerNames,
+    enterButton,
 }
 })();
-
-
-ttt.assignPlayers()
-display.addEvents()

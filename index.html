@@ -8,6 +8,15 @@
     <title>Document</title>
 </head>
 <body>
+    <div id='start'>
+        <div id="window">
+            <p style="margin-bottom: 5px;">Player X:</p>
+            <input id="xinput" type="text">
+            <p style="margin-bottom: 5px;">Player O:</p>
+            <input id="oinput" type="text">
+            <button id="enter" onclick="display.enterButton()" style="margin-top: 20px; padding: 20px; background-color: #30363d; border-radius: 10px; border: none; font-family: monospace; color: #c9d1d9; font-size: x-large;">Enter</button>
+        </div>
+    </div>
     <div id="board">
         <div id="0" class="square"></div>
         <div id="1" class="square"></div>
@@ -19,15 +28,13 @@
         <div id="7" class="square"></div>
         <div id="8" class="square"></div>
     </div>
-    <div id=start>
-        
-    </div>
     <div id='container'>
         <div id="score">
             <div>
                 <div id="player1"></div>
                 <div id="player1score" class="playerscore">0</div>
             </div>
+            <button id="restart">Restart?</button>
             <div>
                 <div id="player2"></div>
                 <div id="player2score" class="playerscore">0</div>
@@ -35,7 +42,6 @@
         </div>
         <div id="gamestate"></div>
     </div>
-    <button id="restart">Restart?</button>
 </body>
 <script src="script.js"></script>
 </html>
