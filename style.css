@@ -3,12 +3,26 @@ body {
 }
 #board {
     display: grid;
+    grid-template-columns: 133px 133px 133px;
+    grid-template-rows: 133px 133px 133px;
     background-color: #161b22;
     margin: auto;
-    grid-template-columns: auto auto auto;
-    height: 400px;
-    width: 400px;
+    height: 399px;
+    width: 399px;
 }
 .square {
- border: solid #30363d;
+    border: solid #30363d;
+}
+.marker {
+    font-family: 'Trebuchet MS';
+    position: relative;
+    bottom: 18px;
+    font-size: 140px;
+    text-align: center;
+}
+.O {
+    color: rgb(46, 46, 228);
+}
+.X {
+    color: rgb(190, 41, 41);
 }
