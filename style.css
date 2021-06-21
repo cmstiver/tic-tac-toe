@@ -26,3 +26,27 @@ body {
 .X {
     color: rgb(190, 41, 41);
 }
+#container {
+    display: block;
+    margin: auto;
+    text-align: center;
+    color: #c9d1d9;
+}
+#score {
+    display: flex;
+    width: 380px;
+    font-size: x-large;
+    font-family: monospace;
+    margin: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+.playerscore {
+    font-size: 50px;
+}
+#gamestate {
+    margin-top: 30px;
+    font-family: monospace;
+    font-size: xx-large;
+}
