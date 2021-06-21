@@ -55,7 +55,9 @@ input {
     color: rgb(190, 41, 41);
 }
 #container {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: auto;
     text-align: center;
     color: #c9d1d9;
